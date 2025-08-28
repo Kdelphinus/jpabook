@@ -17,14 +17,17 @@ class MemberRepositoryTest {
   @Transactional
   @Rollback(false)
   public void testMember() {
+    // given
     Member member = new Member();
     member.setUsername("memberA");
-    Long saveId = memberRepository.save(member);
 
+    // when
+    Long saveId = memberRepository.save(member);
     Member findMember = memberRepository.find(saveId);
 
+    // then
     assertThat(findMember.getId()).isEqualTo(member.getId());
-
+    assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
     assertThat(findMember).isEqualTo(member); // JPA 엔티티 동일성
   }
 }
